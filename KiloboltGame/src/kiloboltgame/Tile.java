@@ -1,10 +1,12 @@
 package kiloboltgame;
 
 import java.awt.Image;
+import java.awt.Rectangle;
 
 public class Tile {
 	private int tileX, tileY, speedX, type;
 	public Image tileImage;
+	private Rectangle r;
 
 	private Background bg = StartingClass.getBg1();
 	private Robot robot = StartingClass.getRobot();
@@ -15,24 +17,31 @@ public class Tile {
 
 		type = typeInt;
 
+		r = new Rectangle();
+
 		if (type == 5) {
 			tileImage = StartingClass.tiledirt;
 		} else if (type == 8) {
 			tileImage = StartingClass.tilegrassTop;
 		} else if (type == 4) {
 			tileImage = StartingClass.tilegrassLeft;
-
 		} else if (type == 6) {
 			tileImage = StartingClass.tilegrassRight;
-
 		} else if (type == 2) {
 			tileImage = StartingClass.tilegrassBot;
+		} else {
+			type = 0;
 		}
 	}
 
 	public void update() {
 		speedX = bg.getSpeedX() * 5;
 		tileX += speedX;
+		r.setBounds(tileX, tileY, 40, 40);
+
+		if (type != 0) {
+			checkVerticalCollision(Robot.rect, Robot.rect2);
+		}
 	}
 
 	public int getTileX() {
@@ -57,5 +66,15 @@ public class Tile {
 
 	public void setTileImage(Image tileImage) {
 		this.tileImage = tileImage;
+	}
+
+	public void checkVerticalCollision(Rectangle rtop, Rectangle rbot) {
+		if (rtop.intersects(r)) {
+			System.out.println("upper collision");
+		}
+		if (rbot.intersects(r)) {
+			System.out.println("lower collision");
+		}
+
 	}
 }

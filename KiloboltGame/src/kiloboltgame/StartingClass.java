@@ -39,7 +39,7 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 	public static Background getBg2() {
 		return bg2;
 	}
-	
+
 	public static Robot getRobot() {
 		return robot;
 	}
@@ -243,6 +243,10 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 			g.fillRect(p.getX(), p.getY(), 10, 5);
 		}
 
+		g.drawRect((int) robot.rect.getX(), (int) robot.rect.getY(),
+				(int) robot.rect.getWidth(), (int) robot.rect.getHeight());
+		g.drawRect((int) robot.rect2.getX(), (int) robot.rect2.getY(),
+				(int) robot.rect2.getWidth(), (int) robot.rect2.getHeight());
 		g.drawImage(currentSprite, robot.getCenterX() - 61,
 				robot.getCenterY() - 63, this);
 		g.drawImage(hanim.getImage(), hb.getCenterX() - 48,
@@ -328,7 +332,7 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 
 		case KeyEvent.VK_SPACE:
 			break;
-		
+
 		case KeyEvent.VK_CONTROL:
 			robot.setReadyToFire(true);
 			break;
